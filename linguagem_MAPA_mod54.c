@@ -3,36 +3,6 @@
 #include <locale.h>
 #include <string.h>
 
-struct Cliente {
-    char nome[50];
-    long cpf;
-    int setorAtendimento;
-};
-
-struct Cliente incluirCliente(int *numeroDeAtendimentos) {
-    struct Cliente novoCliente[100];
-
-    printf("Digite seu nome completo: ");
-    scanf(" %[^\n]s", novoCliente[*numeroDeAtendimentos].nome);
-
-    printf("Digite seu CPF (somente números): ");
-    scanf("%ld", &novoCliente[*numeroDeAtendimentos].cpf); //para tipos de dados long utiliza-se ld
-
-    printf("Digite o número do setor de atendimento desejado:\n");
-    printf("1 - Abertura de Conta\n");
-    printf("2 - Caixa\n");
-    printf("3 - Gerente Pessoa Física\n");
-    printf("4 - Gerente Pessoa Jurídica\n");
-    scanf("%d", &novoCliente[*numeroDeAtendimentos].setorAtendimento);
-
-    fflush(stdin);
-    system("cls");
-
-    (*numeroDeAtendimentos)++;
-
-    return novoCliente[100];
-}
-
 int atendimentoInicial() {
     int opcaoAtendimentoInicial;
 
