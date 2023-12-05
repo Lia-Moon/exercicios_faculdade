@@ -3,6 +3,14 @@
 #include <locale.h>
 #include <string.h>
 
+struct Cliente {
+    char nome[50];
+    long cpf;
+    int setorAtendimento;
+};
+
+struct Cliente listaDeClientes[100];
+
 int atendimentoInicial() {
     int opcaoAtendimentoInicial;
 
@@ -19,28 +27,22 @@ int atendimentoInicial() {
     return opcaoAtendimentoInicial;
 }
 
-void solicitarAtendimento(int *numeroDeAtendimentos, char nomes[][50], long cpfs[], int setoresAtendimento[]) { //utilizamos ponteiro para alterar o valor diretamente no local de memória desta variável
-    char nome[50];
-    long cpf;
-    int setorAtendimento;
+void solicitarAtendimento(int *numeroDeAtendimentos) { //utilizamos ponteiro para alterar o valor diretamente no local de memória desta variável
+
+    
 
     printf("Digite seu nome completo: ");
-    scanf(" %[^\n]s", nome);
+    scanf(" %[^\n]s", listaDeClientes[*numeroDeAtendimentos].nome);
 
     printf("Digite seu CPF (somente números): ");
-    scanf("%ld", &cpf); //para tipos de dados long utiliza-se ld
+    scanf("%ld", &listaDeClientes[*numeroDeAtendimentos].cpf); //para tipos de dados  long utiliza-se ld
 
     printf("Digite o número do setor de atendimento desejado:\n");
     printf("1 - Abertura de Conta\n");
     printf("2 - Caixa\n");
     printf("3 - Gerente Pessoa Física\n");
     printf("4 - Gerente Pessoa Jurídica\n");
-    scanf("%d", &setorAtendimento);
-
-    //Armazenando os dados array por array
-    strcpy(nomes[*numeroDeAtendimentos], nome);
-    cpfs[*numeroDeAtendimentos], cpf;
-    setoresAtendimento[*numeroDeAtendimentos], setorAtendimento;
+    scanf("%d", &listaDeClientes[*numeroDeAtendimentos].setorAtendimento);
 
     fflush(stdin);
     system("cls");
@@ -48,7 +50,8 @@ void solicitarAtendimento(int *numeroDeAtendimentos, char nomes[][50], long cpfs
     (*numeroDeAtendimentos) ++;
 }
 
-void atendimentosRegistrados(int numeroDeAtendimentos, char nomes[][50], long cpfs[], int setoresAtendimento[]) {
+void atendimentosRegistrados(int numeroDeAtendimentos) {
+
     if(numeroDeAtendimentos == 0){
         printf("\nNão há atendimentos registrados até o momento\n");
     } else if(numeroDeAtendimentos == 1) {
@@ -58,22 +61,22 @@ void atendimentosRegistrados(int numeroDeAtendimentos, char nomes[][50], long cp
     }
 
     for(int i = 0; i < numeroDeAtendimentos; i++) {
-        printf("Nome: %s\n", nomes[i]);
-        printf("CPF: %ld\n", cpfs[i]);
-        if(setoresAtendimento[i] == 1) {
+        printf("Nome: %s\n", listaDeClientes[i].nome);
+        printf("CPF: %ld\n", listaDeClientes[i].cpf);
+        if(listaDeClientes[i].setorAtendimento == 1) {
             printf("Tipo Atendimento - 1 - Abertura de Conta\n");
-        } else if(setoresAtendimento[i] == 2) {
+        } else if(listaDeClientes[i].setorAtendimento == 2) {
             printf("Tipo Atendimento - 2 - Caixa\n");
-        } else if(setoresAtendimento[i] == 3) {
+        } else if(listaDeClientes[i].setorAtendimento == 3) {
             printf("Tipo Atendimento - 3 - Gerente Pessoa Física\n");
-        } else if(setoresAtendimento[i] == 4) {
+        } else if(listaDeClientes[i].setorAtendimento == 4) {
             printf("Tipo Atendimento - 4 - Gerente Pessoa Jurídica\n");
         }        
         printf("===============================\n");
     }
 }
 
-char atendimentosPorSetor() {
+void atendimentosPorSetor() {
   
 }
    
@@ -81,8 +84,6 @@ int main() {
     setlocale(LC_ALL, "Portuguese");
 
     int numeroDeAtendimentos = 0, setoresAtendimento[100];
-    char nomes[100][50];
-    long cpfs[100];
 
     printf("==============================================================\n");
     printf("=========== Bem-vindo(a) ao sistema de atendimento ===========\n");
@@ -91,23 +92,23 @@ int main() {
     while(1) {
         switch (atendimentoInicial()) {
             case 1:
-                solicitarAtendimento(&numeroDeAtendimentos, nomes, cpfs, setoresAtendimento);
+                solicitarAtendimento(&numeroDeAtendimentos);
                 break;
             case 2:
-                atendimentosRegistrados(numeroDeAtendimentos, nomes, cpfs, setoresAtendimento);
+                atendimentosRegistrados(numeroDeAtendimentos);
                 break;
             case 3:
                 atendimentosPorSetor();
                 break;    
             case 4:
                 printf("\nFinalização do atendimento. Até logo!\n");
-                return 0;
+                system("pause");
+                return 0; //para finalizar o programa
             default:
                 printf("\n Por favor, digite uma opção válida.");
                 break;
         }
     }    
 
-    system("pause");
     return 0;
 }
