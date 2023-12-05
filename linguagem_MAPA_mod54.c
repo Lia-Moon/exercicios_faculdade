@@ -5,7 +5,7 @@
 
 struct Cliente {
     char nome[50];
-    long cpf;
+    char cpf[15];
     int setorAtendimento;
 };
 
@@ -29,13 +29,11 @@ int atendimentoInicial() {
 
 void solicitarAtendimento(int *numeroDeAtendimentos) { //utilizamos ponteiro para alterar o valor diretamente no local de memória desta variável
 
-    
-
     printf("Digite seu nome completo: ");
     scanf(" %[^\n]s", listaDeClientes[*numeroDeAtendimentos].nome);
 
-    printf("Digite seu CPF (somente números): ");
-    scanf("%ld", &listaDeClientes[*numeroDeAtendimentos].cpf); //para tipos de dados  long utiliza-se ld
+    printf("Digite seu CPF (formato: 123.456.789-10): ");
+    scanf("%s", &listaDeClientes[*numeroDeAtendimentos].cpf);
 
     printf("Digite o número do setor de atendimento desejado:\n");
     printf("1 - Abertura de Conta\n");
@@ -62,22 +60,49 @@ void atendimentosRegistrados(int numeroDeAtendimentos) {
 
     for(int i = 0; i < numeroDeAtendimentos; i++) {
         printf("Nome: %s\n", listaDeClientes[i].nome);
-        printf("CPF: %ld\n", listaDeClientes[i].cpf);
+        printf("CPF: %s\n", listaDeClientes[i].cpf);
         if(listaDeClientes[i].setorAtendimento == 1) {
-            printf("Tipo Atendimento - 1 - Abertura de Conta\n");
+            printf("Tipo de Atendimento - 1 - Abertura de Conta\n");
         } else if(listaDeClientes[i].setorAtendimento == 2) {
-            printf("Tipo Atendimento - 2 - Caixa\n");
+            printf("Tipo de Atendimento - 2 - Caixa\n");
         } else if(listaDeClientes[i].setorAtendimento == 3) {
-            printf("Tipo Atendimento - 3 - Gerente Pessoa Física\n");
+            printf("Tipo de Atendimento - 3 - Gerente Pessoa Física\n");
         } else if(listaDeClientes[i].setorAtendimento == 4) {
-            printf("Tipo Atendimento - 4 - Gerente Pessoa Jurídica\n");
+            printf("Tipo de Atendimento - 4 - Gerente Pessoa Jurídica\n");
         }        
-        printf("===============================\n");
+        printf("\n===============================\n");
     }
 }
 
-void atendimentosPorSetor() {
-  
+void atendimentosPorSetor(int numeroDeAtendimentos) {
+
+    system("cls");
+    
+    for(int i = 0; i < 4; i++) {
+        switch (i) {
+            case 0:
+                printf("\nTipo de Atendimento - 1 - Abertura de Conta\n");
+                break;
+            case 1:
+                printf("\nTipo de Atendimento - 2 - Caixa\n\n");
+                break;
+            case 2:
+                printf("\nTipo de Atendimento - 3 - Gerente Pessoa Física\n\n");
+                break;
+            case 3:
+                printf("\nTipo de Atendimento - 4 - Gerente Pessoa Jurídica\n\n");
+                break;        
+            default:
+                break;
+        }
+        for(int j = 0; j < numeroDeAtendimentos; j++) { 
+            if(listaDeClientes[j].setorAtendimento == i+1) {          
+                printf("Nome: %s\n", listaDeClientes[j].nome);
+                printf("CPF: %s\n", listaDeClientes[j].cpf);
+                printf("===============================\n");
+            }
+        }
+    }
 }
    
 int main() {
@@ -85,7 +110,8 @@ int main() {
 
     int numeroDeAtendimentos = 0, setoresAtendimento[100];
 
-    printf("==============================================================\n");
+    system("cls");
+    printf("\n==============================================================\n");
     printf("=========== Bem-vindo(a) ao sistema de atendimento ===========\n");
     printf("==============================================================\n");
 
@@ -98,10 +124,12 @@ int main() {
                 atendimentosRegistrados(numeroDeAtendimentos);
                 break;
             case 3:
-                atendimentosPorSetor();
+                atendimentosPorSetor(numeroDeAtendimentos);
                 break;    
             case 4:
-                printf("\nFinalização do atendimento. Até logo!\n");
+                printf("\n==============================================================\n");
+                printf("========== Finalização do atendimento. Até logo! ==========\n");
+                printf("==============================================================\n\n");
                 system("pause");
                 return 0; //para finalizar o programa
             default:
