@@ -21,6 +21,13 @@ int atendimentoInicial() {
     printf("4 - Sair\n");
 
     scanf("%d", &opcaoAtendimentoInicial);
+
+    while(opcaoAtendimentoInicial < 1 || opcaoAtendimentoInicial > 4) {
+        printf("Opção inválida! Por favor, digite novamente.\n");
+        fflush(stdin);
+        scanf("%d", &opcaoAtendimentoInicial);
+    }
+
     fflush(stdin);
     system("cls");
 
@@ -75,32 +82,43 @@ void atendimentosRegistrados(int numeroDeAtendimentos) {
 }
 
 void atendimentosPorSetor(int numeroDeAtendimentos) {
+    int filtroAtendimento;
 
     system("cls");
-    
-    for(int i = 0; i < 4; i++) {
-        switch (i) {
-            case 0:
-                printf("\nTipo de Atendimento - 1 - Abertura de Conta\n");
-                break;
-            case 1:
-                printf("\nTipo de Atendimento - 2 - Caixa\n\n");
-                break;
-            case 2:
-                printf("\nTipo de Atendimento - 3 - Gerente Pessoa Física\n\n");
-                break;
-            case 3:
-                printf("\nTipo de Atendimento - 4 - Gerente Pessoa Jurídica\n\n");
-                break;        
-            default:
-                break;
-        }
-        for(int j = 0; j < numeroDeAtendimentos; j++) { 
-            if(listaDeClientes[j].setorAtendimento == i+1) {          
-                printf("Nome: %s\n", listaDeClientes[j].nome);
-                printf("CPF: %s\n", listaDeClientes[j].cpf);
-                printf("===============================\n");
-            }
+
+    printf("Por favor, digite o número do setor que você gostaria de visualizar os atendimentos.\n");
+    printf("1 - Abertura de Conta\n");
+    printf("2 - Caixa\n");
+    printf("3 - Gerente Pessoa Física\n");
+    printf("4 - Gerente Pessoa Jurídica\n");
+
+    scanf("%d", &filtroAtendimento);
+     
+    switch (filtroAtendimento) {
+        case 1:
+            printf("\nTipo de Atendimento - 1 - Abertura de Conta\n");
+            break;
+        case 2:
+            printf("\nTipo de Atendimento - 2 - Caixa\n\n");
+            break;
+        case 3:
+            printf("\nTipo de Atendimento - 3 - Gerente Pessoa Física\n\n");
+            break;
+        case 4:
+            printf("\nTipo de Atendimento - 4 - Gerente Pessoa Jurídica\n\n");
+            break;        
+        default:
+            printf("\n Por favor, digite uma opção válida.\n");
+            fflush(stdin);
+            scanf("%d", &filtroAtendimento);
+            break;
+    }
+
+    for(int i = 0; i < numeroDeAtendimentos; i++) { 
+        if(listaDeClientes[i].setorAtendimento == filtroAtendimento) {          
+            printf("Nome: %s\n", listaDeClientes[i].nome);
+            printf("CPF: %s\n", listaDeClientes[i].cpf);
+            printf("===============================\n");
         }
     }
 }
@@ -133,7 +151,8 @@ int main() {
                 system("pause");
                 return 0; //para finalizar o programa
             default:
-                printf("\n Por favor, digite uma opção válida.");
+                printf("\n Por favor, digite uma opção válida.\n");
+                fflush(stdin);
                 break;
         }
     }    
