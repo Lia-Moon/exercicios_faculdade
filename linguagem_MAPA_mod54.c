@@ -34,6 +34,7 @@ int atendimentoInicial() {
     return opcaoAtendimentoInicial;
 }
 
+//Opção de Atendimento 1
 void solicitarAtendimento(int *numeroDeAtendimentos) { //utilizamos ponteiro para alterar o valor diretamente no local de memória desta variável
 
     printf("Digite seu nome completo: ");
@@ -55,6 +56,7 @@ void solicitarAtendimento(int *numeroDeAtendimentos) { //utilizamos ponteiro par
     (*numeroDeAtendimentos) ++;
 }
 
+//Opção de Atendimento 2
 void atendimentosRegistrados(int numeroDeAtendimentos) {
 
     if(numeroDeAtendimentos == 0){
@@ -81,6 +83,7 @@ void atendimentosRegistrados(int numeroDeAtendimentos) {
     }
 }
 
+//Opção de Atendimento 3
 void atendimentosPorSetor(int numeroDeAtendimentos) {
     int filtroAtendimento;
 
@@ -93,6 +96,7 @@ void atendimentosPorSetor(int numeroDeAtendimentos) {
     printf("4 - Gerente Pessoa Jurídica\n");
 
     scanf("%d", &filtroAtendimento);
+    system("cls");
      
     switch (filtroAtendimento) {
         case 1:
@@ -129,9 +133,9 @@ int main() {
     int numeroDeAtendimentos = 0, setoresAtendimento[100];
 
     system("cls");
-    printf("\n==============================================================\n");
-    printf("=========== Bem-vindo(a) ao sistema de atendimento ===========\n");
-    printf("==============================================================\n");
+    printf("\n============================================\n");
+    printf("== Bem-vindo(a) ao sistema de atendimento ==\n");
+    printf("============================================\n");
 
     while(1) {
         switch (atendimentoInicial()) {
@@ -145,9 +149,9 @@ int main() {
                 atendimentosPorSetor(numeroDeAtendimentos);
                 break;    
             case 4:
-                printf("\n==============================================================\n");
-                printf("========== Finalização do atendimento. Até logo! ==========\n");
-                printf("==============================================================\n\n");
+                printf("\n==============================================\n");
+                printf("== Finalização do atendimento. Até logo! ==\n");
+                printf("==============================================\n\n");
                 system("pause");
                 return 0; //para finalizar o programa
             default:
